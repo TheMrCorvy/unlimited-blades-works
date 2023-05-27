@@ -1,14 +1,14 @@
 'use client';
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 import classNames from './classNames'
 import useClassNames from '../../hooks/useClassNames'
 
 const Modal = () => {
-    const [open, setOpen] = useState(true)
+    const [open, setOpen] = useState(false)
 
-    const customClassNames = useClassNames
+    useEffect(() => setOpen(true), [])
 
     const {
         opaqueBg,
@@ -17,13 +17,31 @@ const Modal = () => {
         itemsCenter,
         activateBtn,
         cancelBtn
-    } = customClassNames(classNames)
+    } = useClassNames(classNames)
+
+    const handleClick = () => {
+        setOpen(false)
+    }
+
+    const backdrop = () => {
+        if (open) {
+            return 'ease-out duration-300 opacity-100'
+        }
+        return 'ease-in duration-300 opacity-0'
+    }
+
+    const panel = () => {
+        if (open) {
+            return 'ease-out duration-300 opacity-100 translate-y-0 sm:scale-100'
+        }
+        return 'ease-in duration-200 opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+    }
 
     return (
-        <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div className={`relative z-10 transition-all ease-in duration-300 ${backdrop()}`} aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div className={opaqueBg}></div>
             <div className="fixed inset-0 z-10 overflow-y-auto">
-                <div className={flexContainer}>
+                <div className={flexContainer + ' ' + panel()}>
                     <div className={positionRelative}>
                         <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                             <div className="sm:flex sm:items-start">
@@ -41,8 +59,8 @@ const Modal = () => {
                             </div>
                         </div>
                         <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                            <button type="button" className={activateBtn}>Activate</button>
-                            <button type="button" className={cancelBtn}>Cancel</button>
+                            <button type="button" onClick={handleClick} className={activateBtn}>Activate</button>
+                            <button type="button" onClick={handleClick} className={cancelBtn}>Cancel</button>
                         </div>
                     </div>
                 </div>
