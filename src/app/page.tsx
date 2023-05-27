@@ -1,6 +1,5 @@
-import Image from 'next/image'
+
 import Modal from '../components/Modal'
-import unlimited from '../../public/unlimited.jpg'
 
 export default function Home() {
   return (
