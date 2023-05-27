@@ -1,3 +1,11 @@
+interface Params {
+	[key: string]: string[]
+}
+
+interface Result {
+	[key: string]: string
+}
+
 const useClassNames = (className: Params): Result => {
 	let res: Result = {}
 
@@ -6,14 +14,6 @@ const useClassNames = (className: Params): Result => {
 	})
 
 	return res
-}
-
-interface Params {
-	[key: string]: string[]
-}
-
-interface Result {
-	[key: string]: string
 }
 
 export default useClassNames
