@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from "react"
+import Image from 'next/image'
 
 import classNames from './classNames'
 import useClassNames from '../../hooks/useClassNames'
@@ -41,14 +42,12 @@ const Modal = () => {
         <div className={`relative z-10 transition-all ease-in duration-300 ${backdrop()}`} aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div className={opaqueBg}></div>
             <div className="fixed inset-0 z-10 overflow-y-auto">
-                <div className={flexContainer + ' transition-all ' + panel()}>
+                <div className={flexContainer + ' ' + panel()}>
                     <div className={positionRelative}>
                         <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                             <div className="sm:flex sm:items-start">
                                 <div className={itemsCenter}>
-                                    {/* <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                                    </svg> */}
+                                    <Image src='/sound-icon.svg' className="text-red-600" alt='Sound Icon' width={30} height={30} />
                                 </div>
                                 <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                                     <h3 className="text-base font-semibold leading-6 text-gray-900" id="modal-title">This site plays music</h3>

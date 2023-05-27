@@ -42,6 +42,7 @@ const classNames = {
 		"sm:mx-0",
 		"sm:h-10",
 		"sm:w-10",
+		"text-red-600",
 	],
 	activateBtn: [
 		"inline-flex",
