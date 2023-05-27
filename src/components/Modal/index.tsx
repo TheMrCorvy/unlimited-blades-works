@@ -2,12 +2,16 @@
 
 import React, { useState, useEffect } from "react"
 import Image from 'next/image'
+import dynamic from 'next/dynamic';
 
 import classNames from './classNames'
 import useClassNames from '../../hooks/useClassNames'
 
 const Modal = () => {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(true)
+    const [play, setPlay] = useState(false)
+
+    const MusicPlayer = dynamic(() => import('../MusicPlayer'));
 
     useEffect(() => setOpen(true), [])
 
@@ -20,7 +24,8 @@ const Modal = () => {
         cancelBtn
     } = useClassNames(classNames)
 
-    const handleClick = () => {
+    const handleClick = (option: 'play' | 'cancel') => {
+        option === 'play' && setPlay(true)
         setOpen(false)
     }
 
@@ -39,32 +44,35 @@ const Modal = () => {
     }
 
     return (
-        <div className={`relative z-10 transition-all ease-in duration-300 ${backdrop()}`} aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            <div className={opaqueBg}></div>
-            <div className="fixed inset-0 z-10 overflow-y-auto">
-                <div className={flexContainer + ' ' + panel()}>
-                    <div className={positionRelative}>
-                        <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                            <div className="sm:flex sm:items-start">
-                                <div className={itemsCenter}>
-                                    <Image src='/sound-icon.svg' className="text-red-600" alt='Sound Icon' width={30} height={30} />
-                                </div>
-                                <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                    <h3 className="text-base font-semibold leading-6 text-gray-900" id="modal-title">This site plays music</h3>
-                                    <div className="mt-2">
-                                        <p className="text-sm text-gray-500">If you want to have the full experience, you can activate the sound on your device.</p>
+        <>
+            {play && <MusicPlayer />}
+            <div className={`relative z-10 transition-all ease-in duration-300 ${backdrop()}`} aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                <div className={opaqueBg}></div>
+                <div className="fixed inset-0 z-10 overflow-y-auto">
+                    <div className={flexContainer + ' ' + panel()}>
+                        <div className={positionRelative}>
+                            <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                                <div className="sm:flex sm:items-start">
+                                    <div className={itemsCenter}>
+                                        <Image src='/sound-icon.svg' className="text-red-600" alt='Sound Icon' width={30} height={30} />
+                                    </div>
+                                    <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                        <h3 className="text-base font-semibold leading-6 text-gray-900" id="modal-title">This site plays music</h3>
+                                        <div className="mt-2">
+                                            <p className="text-sm text-gray-500">If you want to have the full experience, you can activate the sound on your device.</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                            <button type="button" onClick={handleClick} className={activateBtn}>Activate</button>
-                            <button type="button" onClick={handleClick} className={cancelBtn}>Cancel</button>
+                            <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                                <button type="button" onClick={() => handleClick('play')} className={activateBtn}>Activate</button>
+                                <button type="button" onClick={() => handleClick('cancel')} className={cancelBtn}>Cancel</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

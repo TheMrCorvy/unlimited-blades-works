@@ -5,7 +5,7 @@ import unlimited from '../../public/unlimited.jpg'
 export default function Home() {
   return (
     <main
-      className="flex min-h-screen flex-col items-center justify-between p-24"
+      className="flex min-h-screen flex-col items-center justify-between p-24 relative"
     >
       <Image
         priority
