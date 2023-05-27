@@ -41,7 +41,7 @@ const Modal = () => {
         <div className={`relative z-10 transition-all ease-in duration-300 ${backdrop()}`} aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div className={opaqueBg}></div>
             <div className="fixed inset-0 z-10 overflow-y-auto">
-                <div className={flexContainer + ' ' + panel()}>
+                <div className={flexContainer + ' transition-all ' + panel()}>
                     <div className={positionRelative}>
                         <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                             <div className="sm:flex sm:items-start">
